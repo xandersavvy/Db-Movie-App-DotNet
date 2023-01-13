@@ -1,19 +1,26 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using MovieDbAngDotNet.DataAccessLayer;
 using MovieDbAngDotNet.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace MovieDbAngDotNet.Controllers
 {
    
     [ApiController]
+
     public class UserController : ControllerBase
     {
 
         private readonly IUserDb userDataAccess;
-        public UserController(IUserDb userDataAccess)
+        private readonly IConfiguration configuration;
+        public UserController(IUserDb userDataAccess,IConfiguration configuration)
         {
             this.userDataAccess = userDataAccess;
+            this.configuration = configuration;
         }
 
         [HttpGet("api/login")]
@@ -23,14 +30,14 @@ namespace MovieDbAngDotNet.Controllers
             
             UserDb? user = await userDataAccess.Login(email, password);
             
+
             if (user == null)
             {
                 return BadRequest();
             }
             else
             {
-                user.Password = null;
-                return Ok(user);
+                return Ok(new UserCreds(user.Email,CreateJWT(user.Email), user.Name));
             }
             
         }
@@ -49,5 +56,19 @@ namespace MovieDbAngDotNet.Controllers
                 return BadRequest();
             }
         }
+
+        private string CreateJWT(string userName) {
+            string? secret = configuration["Jwt:Key"];
+            if (secret == null) { secret = ""; }
+            SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(secret));
+            SigningCredentials creds = new(key, SecurityAlgorithms.HmacSha256);
+
+            Claim[] claims = new[] { new Claim(ClaimTypes.NameIdentifier, userName) };
+
+            JwtSecurityToken token = new(configuration["Jwt:Issuer"], configuration["Jwt:Audience"],
+                claims,expires:DateTime.Now.AddDays(1),signingCredentials:creds);
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
     }
 }

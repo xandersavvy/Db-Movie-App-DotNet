@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieDbAngDotNet.DataAccessLayer;
 using MovieDbAngDotNet.Models;
@@ -10,6 +11,7 @@ namespace MovieDbAngDotNet.Controllers
 {
     [Route("api")]
     [ApiController]
+    [Authorize]
     public class MovieDbController : ControllerBase
     {
         private readonly IMovieDb _movieDataAccess; 
@@ -22,6 +24,7 @@ namespace MovieDbAngDotNet.Controllers
 
         // GET: api/<MovieDbController>
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<MovieDb>  GetAll() 
         {   
 
@@ -31,6 +34,7 @@ namespace MovieDbAngDotNet.Controllers
 
         // GET api/<MovieDbController>/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult Get(int id)
         {
             return Ok(_movieDataAccess.GetMovieById(id));

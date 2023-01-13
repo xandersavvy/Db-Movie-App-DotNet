@@ -18,3 +18,20 @@ public partial class UserDb
 
     public string Password { get; set; } = null!;
 }
+
+public partial class UserCreds 
+{
+    public UserCreds(string email, string token, string name)
+    {
+        this.email = email;
+        this.name = name;
+
+        this.token = token;
+    }
+
+    public string email { get; private set; } = null!;
+    public string token { get;private set; } = null!;
+    public string name { get;private set; } = null!;
+
+
+}
