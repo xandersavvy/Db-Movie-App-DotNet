@@ -16,5 +16,5 @@ public partial class UserDb
 
     public string Name { get; private set; } = null!;
 
-    public string Password { get;private set; } = null!;
+    public string Password { get; set; } = null!;
 }

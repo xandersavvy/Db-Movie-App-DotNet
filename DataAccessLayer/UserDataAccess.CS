@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Web;
+﻿using BCrypt.Net;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using MovieDbAngDotNet.Models;
 using System.Net.Mail;
@@ -16,7 +17,7 @@ namespace MovieDbAngDotNet.DataAccessLayer
         {
             try {
                 UserDb? userDb = await _context.UserDbs.FirstOrDefaultAsync(x => x.Email == email);
-                if(userDb != null && userDb.Password.Equals(password)) {
+                if(userDb != null && BCrypt.Net.BCrypt.Verify(password,userDb.Password)) {
                     return userDb;
                 }
                 return null;    
@@ -29,6 +30,7 @@ namespace MovieDbAngDotNet.DataAccessLayer
         public void Register(string email, string name, string password)
         {
             try {
+                    password = BCrypt.Net.BCrypt.HashPassword(password);
                     UserDb userDb = new(email, name, password);
                     _context.UserDbs.Add(userDb);
                     _context.SaveChanges();

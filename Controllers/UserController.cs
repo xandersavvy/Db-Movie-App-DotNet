@@ -29,6 +29,7 @@ namespace MovieDbAngDotNet.Controllers
             }
             else
             {
+                user.Password = null;
                 return Ok(user);
             }
             
