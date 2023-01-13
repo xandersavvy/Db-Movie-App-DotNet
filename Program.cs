@@ -13,6 +13,7 @@ builder.Services.AddDbContext<MoviesContext>();
 
 
 builder.Services.AddScoped<IMovieDb, MovieDataAccess>();
+builder.Services.AddScoped<IUserDb, UserDataAccess>();
 
 //builder.Services.AddScoped<IMovieDb, MovieDbController>();
 

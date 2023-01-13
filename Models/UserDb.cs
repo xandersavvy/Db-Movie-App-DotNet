@@ -6,9 +6,15 @@ namespace MovieDbAngDotNet.Models;
 public partial class UserDb
 {
 
-    public string Email { get; set; } = null!;
+    public UserDb(string email,string name,string password) { 
+        Email= email;
+        Name= name;
+        Password= password;
+    }
 
-    public string Name { get; set; } = null!;
+    public string Email { get; private set; } = null!;
 
-    public string Password { get; set; } = null!;
+    public string Name { get; private set; } = null!;
+
+    public string Password { get;private set; } = null!;
 }
