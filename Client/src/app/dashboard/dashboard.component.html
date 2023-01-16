@@ -1,0 +1,56 @@
+<div *ngIf="userNotLoggedIn; else dashboard">
+  <app-login></app-login>
+</div>
+
+<ng-template #dashboard>
+  <!-- modal -->
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      Hello {{ user.email }}
+      <button
+        type="button"
+        class="btn-close"
+        aria-label="Close"
+        (click)="d('Cross click')"
+      ></button>
+    </div>
+    <div class="modal-body">
+      <label for="name" class="p-1 m-1">Enter Name</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        class="name:"
+        value="{{ name }}"
+        class="p-1 m-1"
+      />
+      <label for="year" class="p-1 m-1">Enter year</label>
+      <input
+        type="number"
+        value="{{ year }}"
+        name="year "
+        class="year"
+        id="year"
+        class="p-1 m-1"
+      />
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-dark"
+        (click)="c('Save click')"
+        [disabled]="ver"
+      >
+        Add Movie
+      </button>
+    </div>
+  </ng-template>
+
+  <!-- modal  -->
+  <div class="container">
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
+      +
+    </button>
+    <app-movie-layout></app-movie-layout>
+  </div>
+</ng-template>

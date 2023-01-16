@@ -1,0 +1,15 @@
+.card{
+    margin:2px;
+    padding: 2px;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}   
+.button-gr>*{
+    padding: 2px;
+    margin: 10px;
+    font-weight: bolder;
+    cursor: pointer;
+}
