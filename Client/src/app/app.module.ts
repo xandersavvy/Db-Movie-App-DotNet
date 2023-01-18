@@ -9,11 +9,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MovieLayoutComponent } from './layout/movie-layout/movie-layout.component';
 import { SingleMovieComponent } from './layout/single-movie/single-movie.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { MovieService } from './services/movie.service';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, DashboardComponent, MovieLayoutComponent, SingleMovieComponent],
-  imports: [BrowserModule, AppRoutingModule, NgbModule],
-  providers: [],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    DashboardComponent,
+    MovieLayoutComponent,
+    SingleMovieComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
+  providers: [MovieService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

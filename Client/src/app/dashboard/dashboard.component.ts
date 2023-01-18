@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
     this.modalService.open(content);
   }
   ngOnInit(): void {
-    this.userNotLoggedIn = localStorage.getItem('user') ? false : true;
+    this.userNotLoggedIn = !(localStorage.getItem('user') ? false : true);
 
     if (localStorage.getItem('user'))
       this.user = JSON.parse(localStorage.getItem('user') as string);

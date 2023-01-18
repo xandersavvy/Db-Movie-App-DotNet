@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
+var EnvPol = "_envPol";
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,7 +24,8 @@ builder.Services.AddScoped<IUserDb, UserDataAccess>();
 
 
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
@@ -35,8 +38,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: EnvPol, builder =>
+    {
+        builder.AllowAnyHeader().AllowAnyMethod()
+                .SetIsOriginAllowed(SeekOrigin => true).AllowCredentials();
+    });
+});
 
 
+builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddScoped<IMovieDb, MovieDbController>();
 
 var app = builder.Build();
@@ -48,12 +60,13 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+// app.UseHttpsRedirection();
+
 app.UseRouting();
+app.UseCors(EnvPol);
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors();
 
 
 app.MapControllerRoute(

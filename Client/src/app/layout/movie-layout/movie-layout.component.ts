@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieService } from 'src/app/services/movie.service';
 import { Movie } from 'src/interfaces/Movie';
 
 @Component({
@@ -18,28 +19,12 @@ export class MovieLayoutComponent implements OnInit {
       name: 'RRR',
       year: 2018,
     },
-    {
-      id: 1,
-      name: 'RRR',
-      year: 2018,
-    },
-    {
-      id: 1,
-      name: 'RRR',
-      year: 2018,
-    },
-    {
-      id: 1,
-      name: 'RRR',
-      year: 2018,
-    },
-    {
-      id: 1,
-      name: 'RRR',
-      year: 2018,
-    },
   ];
-  constructor() {}
+  constructor(private _movieService: MovieService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._movieService.getAllMovies().subscribe((data) => {
+      console.log(data);
+    });
+  }
 }
