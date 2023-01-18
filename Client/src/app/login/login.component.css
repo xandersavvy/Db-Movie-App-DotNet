@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+.container>*{
+    padding: 4px;
+    margin: 5px;
+    font-variant: small-caps;
+}
+.container>*>*{
+    padding: 10 px;
+    margin: 4px;
+    font-weight: 900;
+    font-size: 1rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+input{
+    background-color: aliceblue;
+}

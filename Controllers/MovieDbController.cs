@@ -14,7 +14,7 @@ namespace MovieDbAngDotNet.Controllers
     [Authorize]
     public class MovieDbController : ControllerBase
     {
-        private readonly IMovieDb _movieDataAccess; 
+        private readonly IMovieDb _movieDataAccess;
 
         public MovieDbController(IMovieDb movieDataAccess)
         {
@@ -25,11 +25,11 @@ namespace MovieDbAngDotNet.Controllers
         // GET: api/<MovieDbController>
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<MovieDb>  GetAll() 
-        {   
+        public IEnumerable<MovieDb> GetAll()
+        {
 
             return _movieDataAccess.GetMovies();
-            
+
         }
 
         // GET api/<MovieDbController>/5
@@ -42,23 +42,22 @@ namespace MovieDbAngDotNet.Controllers
 
         // POST api/<MovieDbController>
         [HttpPost]
-        public IActionResult Post(string name,string year)
+        public IActionResult Post(string name, string year)
         {
-                int _year = int.Parse(year);
-                if(_year < 1700||_year > DateTime.Now.Year) return BadRequest();
-                
-                _movieDataAccess.AddMovie(new MovieDb(name, _year));
-                return Ok();
-                
+            int _year = int.Parse(year);
+            if (_year < 1700 || _year > DateTime.Now.Year) return BadRequest();
+
+            return Ok(_movieDataAccess.AddMovie(new MovieDb(name, _year)));
+
         }
 
         // PUT api/<MovieDbController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(string id,string name, string year)
+        public IActionResult Put(string id, string name, string year)
         {
             int _year = int.Parse(year);
             if (_year < 1700 || _year > DateTime.Now.Year) return BadRequest();
-            _movieDataAccess.AddMovie(new MovieDb(int.Parse(id),name, _year));
+            _movieDataAccess.AddMovie(new MovieDb(int.Parse(id), name, _year));
             return Ok();
         }
 

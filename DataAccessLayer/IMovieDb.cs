@@ -12,7 +12,7 @@ public interface IMovieDb
 
     MovieDb? GetMovieByName(string name);
 
-    void AddMovie(MovieDb movieDb);
+    IEnumerable<MovieDb> AddMovie(MovieDb movieDb);
     void DeleteMovieById(int id);
 
     void UpdateMovie(MovieDb movieDb);

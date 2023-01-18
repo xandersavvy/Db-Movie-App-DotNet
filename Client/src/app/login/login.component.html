@@ -1,1 +1,29 @@
-<p>login works!</p>
+<form action="" class="container">
+  <h1>Login</h1>
+  <div class="form-group">
+    <label for="email"> Enter your email to login </label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      formControlName="email"
+      class="form-control"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="password"> Enter your password </label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      formControlName="password"
+      class="form-control"
+      required
+    />
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a href="./register" class="btn btn-primary">Register Here</a>
+  </div>
+</form>

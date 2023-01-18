@@ -4,7 +4,7 @@ using MovieDbAngDotNet.Models;
 
 namespace MovieDbAngDotNet.DataAccessLayer;
 
-public  class MovieDataAccess : IMovieDb
+public class MovieDataAccess : IMovieDb
 {
 
     private MoviesContext _context;
@@ -12,27 +12,34 @@ public  class MovieDataAccess : IMovieDb
     {
         _context = context;
     }
-    public void AddMovie(MovieDb movieDb)
+    public IEnumerable<MovieDb> AddMovie(MovieDb movieDb)
     {
         try
         {
             this._context.MovieDbs.Add(movieDb);
             this._context.SaveChanges();
-        }catch(Exception ex) {
+            return this._context.MovieDbs.ToList();
+        }
+        catch (Exception ex)
+        {
             Console.WriteLine(ex.Message);
+            return Enumerable.Empty<MovieDb>().ToList();
         }
 
     }
 
     public void DeleteMovieById(int id)
     {
-        try { 
+        try
+        {
             MovieDb? movieDb = _context.MovieDbs.Find(id);
-            if (movieDb != null) {
+            if (movieDb != null)
+            {
                 this._context.MovieDbs.Remove(movieDb);
                 this._context.SaveChanges();
             }
-        }catch(Exception ex)
+        }
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
@@ -40,9 +47,12 @@ public  class MovieDataAccess : IMovieDb
 
     public MovieDb? GetMovieById(int id)
     {
-        try { 
+        try
+        {
             return _context.MovieDbs.Find(id) as MovieDb;
-        }catch(Exception ex) {
+        }
+        catch (Exception ex)
+        {
             Console.WriteLine(ex.Message);
             return null;
         }
@@ -67,16 +77,18 @@ public  class MovieDataAccess : IMovieDb
         {
             return _context.MovieDbs.ToList();
         }
-        catch (Exception ex) { 
-           Console.WriteLine(ex.Message);
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
             return Enumerable.Empty<MovieDb>().ToList();
         }
- 
+
     }
 
     public void UpdateMovie(MovieDb movieDb)
     {
-        try {
+        try
+        {
 
             MovieDb? _movieDb = _context.MovieDbs.Find(movieDb.Id);
             if (_movieDb != null)
@@ -86,8 +98,9 @@ public  class MovieDataAccess : IMovieDb
                 this._context.SaveChanges();
             }
             this._context.SaveChanges();
-        
-        }catch(Exception ex)
+
+        }
+        catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
