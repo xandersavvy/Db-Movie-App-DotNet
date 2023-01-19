@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieDbAngDotNet.Controllers
 {
-    [Route("api")]
+    [Route("")]
     [ApiController]
     [Authorize]
     public class MovieDbController : ControllerBase

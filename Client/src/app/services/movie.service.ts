@@ -7,7 +7,7 @@ import { Movie } from 'src/interfaces/Movie';
   providedIn: 'root',
 })
 export class MovieService {
-  private url = 'https://localhost:7053/api';
+  private url = 'https://localhost:7053/';
   // url = 'https://api.randomuser.me/';
   constructor(private httpClient: HttpClient) {}
 

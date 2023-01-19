@@ -7,7 +7,7 @@ import { User } from 'src/interfaces/User';
   providedIn: 'root',
 })
 export class AuthService {
-  url = 'https://localhost:7053/api/';
+  url = 'https://localhost:7053/';
   constructor(private http: HttpClient) {}
   public login(email: string, password: string): Observable<User> {
     return this.http.get<User>(
