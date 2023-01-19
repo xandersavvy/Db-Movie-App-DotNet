@@ -14,20 +14,27 @@
         (click)="d('Cross click')"
       ></button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body form-group" [formGroup]="movieSec">
       <label for="name" class="p-1 m-1">Enter Name</label>
-      <input type="text" name="name" id="name" [value]="name" class="p-1 m-1" />
+      <input
+        type="text"
+        name="name"
+        id="name"
+        class="p-1 m-1 form-control"
+        formControlName="name"
+      />
       <label for="year" class="p-1 m-1">Enter year</label>
       <input
         type="number"
-        value="{{ year }}"
         name="year"
         id="year"
-        class="p-1 m-1"
+        class="p-1 m-1 form-control"
+        formControlName="year"
       />
+      <p class="text-danger">{{ error }}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" [disabled]="ver">
+      <button type="button" class="btn btn-outline-dark" (click)="addMovie()">
         Add Movie
       </button>
     </div>
