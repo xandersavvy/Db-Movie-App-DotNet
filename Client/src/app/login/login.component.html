@@ -1,6 +1,6 @@
-<form action="" class="container">
+<form class="container">
   <h1>Login</h1>
-  <div class="form-group">
+  <div [formGroup]="loginSection">
     <label for="email"> Enter your email to login </label>
     <input
       type="email"
@@ -8,10 +8,9 @@
       id="email"
       formControlName="email"
       class="form-control"
+      autocomplete="email"
       required
     />
-  </div>
-  <div class="form-group">
     <label for="password"> Enter your password </label>
     <input
       type="password"
@@ -19,11 +18,16 @@
       id="password"
       formControlName="password"
       class="form-control"
+      autocomplete="current-password"
       required
     />
+
+    <p class="text-danger">{{ error }}</p>
   </div>
   <div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" (click)="login()">
+      Submit
+    </button>
     <a href="./register" class="btn btn-primary">Register Here</a>
   </div>
 </form>

@@ -6,7 +6,7 @@
   <!-- modal -->
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      Hello {{ user.email }}
+      Hello {{ userName }}
       <button
         type="button"
         class="btn-close"
@@ -16,31 +16,18 @@
     </div>
     <div class="modal-body">
       <label for="name" class="p-1 m-1">Enter Name</label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        class="name:"
-        value="{{ name }}"
-        class="p-1 m-1"
-      />
+      <input type="text" name="name" id="name" [value]="name" class="p-1 m-1" />
       <label for="year" class="p-1 m-1">Enter year</label>
       <input
         type="number"
         value="{{ year }}"
-        name="year "
-        class="year"
+        name="year"
         id="year"
         class="p-1 m-1"
       />
     </div>
     <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-outline-dark"
-        (click)="c('Save click')"
-        [disabled]="ver"
-      >
+      <button type="button" class="btn btn-outline-dark" [disabled]="ver">
         Add Movie
       </button>
     </div>
@@ -50,6 +37,13 @@
   <div class="container">
     <button class="btn btn-lg btn-outline-primary" (click)="open(content)">
       +
+    </button>
+    <button
+      type="submit"
+      class="btn btn-lg btn-outline-primary"
+      (click)="logOut()"
+    >
+      Log Out
     </button>
     <app-movie-layout></app-movie-layout>
   </div>

@@ -1,55 +1,55 @@
-<form action="" class="container">
-  <h1>register</h1>
-  <div class="form-group">
-    <label for="email"> Enter your email to register </label>
-    <input
-      type="email"
-      name="email"
-      id="email"
-      formControlName="email"
-      class="form-control"
-      autocomplete="email"
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="name">Enter your name</label
-    ><input
-      type="text"
-      name="name"
-      id="name"
-      class="form-control"
-      formControlName="name"
-      autocomplete="name"
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="password"> Enter your password </label>
-    <input
-      type="password"
-      name="password"
-      id="password"
-      formControlName="password"
-      class="form-control"
-      autocomplete="new-password"
-      required
-      aria-describedby="passwordHelpBlock"
-      ng-pattern="reg"
-    />
-    <p
-      id="passwordHelpBlock"
-      class="form-text text-muted"
-      *ngIf="wrongPass; else error"
-    ></p>
-    <ng-template class="text-danger" #error>
-      Your password must be 6-16 characters long, contain both cases letters,
-      numbers and special characters, and must not contain spaces, emoji.
-    </ng-template>
-  </div>
+<div *ngIf="loggedIn; else register">
+  <p>Loading....</p>
+</div>
+<ng-template #register>
+  <form action="" class="container">
+    <h1>register</h1>
+    <div class="form-group" [formGroup]="regSec">
+      <label for="email"> Enter your email to register </label>
 
-  <div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <a href="./" class="btn btn-primary">Login Here</a>
-  </div>
-</form>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        formControlName="email"
+        class="form-control"
+        autocomplete="email"
+        required
+      />
+      <p class="text-danger">{{ emailError }}</p>
+      <label for="name">Enter your name</label
+      ><input
+        type="text"
+        name="name"
+        id="name"
+        class="form-control"
+        formControlName="name"
+        autocomplete="name"
+        required
+      />
+      <label for="password"> Enter your password </label>
+
+      <input
+        type="password"
+        name="password"
+        id="password"
+        formControlName="password"
+        class="form-control"
+        autocomplete="new-password"
+        required
+      />
+      <p class="text-danger">{{ passwordError }}</p>
+      <p>
+        Your password must be 8-16 characters long, contain both cases letters,
+        numbers and special characters, and must not contain spaces, emoji.
+      </p>
+    </div>
+    <p class="text-danger">{{ error }}</p>
+    <div>
+      <button type="submit" class="btn btn-primary" (click)="registerFunc()">
+        Submit
+      </button>
+      <a href="./" class="btn btn-primary">Login Here</a>
+    </div>
+  </form>
+</ng-template>

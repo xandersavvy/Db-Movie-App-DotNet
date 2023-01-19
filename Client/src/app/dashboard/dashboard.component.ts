@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
   ver = false;
   userNotLoggedIn: Boolean = false;
   user!: User;
+  userName: string | null | undefined;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     // customize default values of modals used by this component tree
@@ -24,9 +25,18 @@ export class DashboardComponent implements OnInit {
     this.modalService.open(content);
   }
   ngOnInit(): void {
-    this.userNotLoggedIn = !(localStorage.getItem('user') ? false : true);
+    this.userNotLoggedIn = localStorage.getItem('token') ? false : true;
 
-    if (localStorage.getItem('user'))
-      this.user = JSON.parse(localStorage.getItem('user') as string);
+    if (localStorage.getItem('name'))
+      this.userName = localStorage.getItem('name');
+  }
+  addMovie() {
+    console.log(this.name, this.year);
+  }
+  logOut() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+    localStorage.removeItem('name');
+    window.location.href = '';
   }
 }

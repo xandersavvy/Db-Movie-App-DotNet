@@ -11,6 +11,8 @@ import { SingleMovieComponent } from './layout/single-movie/single-movie.compone
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieService } from './services/movie.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,8 +23,15 @@ import { MovieService } from './services/movie.service';
     MovieLayoutComponent,
     SingleMovieComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, NgbModule, HttpClientModule],
-  providers: [MovieService],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    NgbModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [MovieService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

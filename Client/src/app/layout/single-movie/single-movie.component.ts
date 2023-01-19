@@ -6,7 +6,7 @@ import { Movie } from '../../../interfaces/Movie';
   template: `
     <div class="card">
       <h4>{{ movie.name }}</h4>
-      <small> {{ movie.year } </small>
+      <small> {{ movie.year }} </small>
       <div class="button-gr">
         <button class="btn btn-lg btn-outline-primary">✎</button>
         <button class="btn btn-lg btn-outline-danger p-danger ">🗑</button>
