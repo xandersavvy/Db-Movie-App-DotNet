@@ -4,27 +4,27 @@ import { Movie } from 'src/interfaces/Movie';
 
 @Component({
   selector: 'app-movie-layout',
-  template: ` <div>
-    <app-single-movie
-      *ngFor="let movie of movies"
-      [movie]="movie"
-    ></app-single-movie>
-  </div>`,
+  template: `
+    <div *ngIf="!loading; else Loading">
+      <app-single-movie
+        *ngFor="let movie of movies"
+        [movie]="movie"
+      ></app-single-movie>
+    </div>
+
+    <ng-template #Loading><p>Loading....</p></ng-template>
+  `,
   styleUrls: ['./movie-layout.component.css'],
 })
 export class MovieLayoutComponent implements OnInit {
-  movies: Movie[] = [
-    {
-      id: 1,
-      name: 'RRR',
-      year: 2018,
-    },
-  ];
+  movies: Movie[] = [];
+  loading = true;
   constructor(private _movieService: MovieService) {}
 
   ngOnInit(): void {
     this._movieService.getAllMovies().subscribe((data) => {
-      console.log(data);
+      this.movies = data;
+      this.loading = false;
     });
   }
 }
