@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Movie } from 'src/interfaces/Movie';
@@ -7,14 +7,31 @@ import { Movie } from 'src/interfaces/Movie';
   providedIn: 'root',
 })
 export class MovieService {
-  url = 'https://localhost:7053/api';
+  private url = 'https://localhost:7053/api';
   // url = 'https://api.randomuser.me/';
   constructor(private httpClient: HttpClient) {}
 
   public getAllMovies(): Observable<Movie[]> {
     return this.httpClient.get<Movie[]>(this.url);
   }
-  public addMovie(name: string, year: number, body: any) {
-    return this.httpClient.post(`${this.url}?name=${name}&year=${year}`, body);
+  public addMovie(name: string, year: number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.httpClient.post(
+      `${this.url}?name=${name}&year=${year}`,
+      { name, year },
+      httpOptions
+    );
+  }
+  public deleteMovie(id: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+    };
+    return this.httpClient.delete(`${this.url}/${id}`, httpOptions);
   }
 }

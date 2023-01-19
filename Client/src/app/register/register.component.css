@@ -9,7 +9,7 @@
 .container>*{
     padding: 4px;
     margin: 5px;
-    font-variant: small-caps;
+   
 }
 .container>*>*{
     padding: 10 px;
@@ -20,4 +20,7 @@
 }
 input{
     background-color: aliceblue;
+}
+label,p,button,h1{
+    font-variant: small-caps;
 }

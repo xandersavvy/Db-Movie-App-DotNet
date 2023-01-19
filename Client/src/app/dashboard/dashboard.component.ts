@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { User } from 'src/interfaces/User';
+import { catchError, EMPTY } from 'rxjs';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,14 +11,19 @@ import { User } from 'src/interfaces/User';
   providers: [NgbModal, NgbModalConfig],
 })
 export class DashboardComponent implements OnInit {
-  name = '';
-  year = '';
   ver = false;
   userNotLoggedIn: Boolean = false;
-  user!: User;
   userName: string | null | undefined;
-
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
+  error = '';
+  movieSec = new FormGroup({
+    name: new FormControl(''),
+    year: new FormControl(0),
+  });
+  constructor(
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+    private _movieService: MovieService
+  ) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
@@ -31,7 +38,19 @@ export class DashboardComponent implements OnInit {
       this.userName = localStorage.getItem('name');
   }
   addMovie() {
-    console.log(this.name, this.year);
+    const { year, name } = this.movieSec.value;
+    if (name == null || year == null || year < 1700 || year > 2100)
+      this.error = ' Something is not right';
+    else
+      this._movieService
+        .addMovie(name, year)
+        .pipe(
+          catchError((err) => {
+            console.log(err);
+            return EMPTY;
+          })
+        )
+        .subscribe((data) => window.location.reload());
   }
   logOut() {
     localStorage.removeItem('token');
